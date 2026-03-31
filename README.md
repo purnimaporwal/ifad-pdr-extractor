@@ -20,7 +20,7 @@ I said I would try to make it work.
 
 I worked through it iteratively with Claude. I tried the automatic approach first, reading the Table of Contents, finding the page numbers, and extracting the right pages. It worked on some files but missed pages in others.
 
-So I suggested trying a manual backup approach. Instead of finding pages automatically, you just tell the tool the start and end page numbers directly. That worked better. I kept testing on different IFAD PDR files and refining until both approaches were reliable.
+So I suggested trying a manual backup approach. Instead of automatically finding pages, you tell the tool the start and end page numbers directly. That worked better. I kept testing on different IFAD PDR files and refining until both approaches were reliable.
 
 The problem design, the two-strategy approach, and all the decisions about what to build were mine. Claude helped me write Python syntax I was still learning at the time.
 
@@ -119,7 +119,6 @@ Then run:
 ```bash
 python3 manual_extract.py
 ```
-
 ---
 
 ## The trickiest part: dual page numbering
@@ -164,7 +163,6 @@ pdfplumber >= 0.9.0
 pypdf >= 3.0.0
 Python >= 3.8
 ```
-
 ---
 
 ## A note on AI-assisted development
