@@ -5,7 +5,7 @@ Just change the 4 settings below and run it.
 
 Author: Purnima Porwal
 Built for: IFAD Office of Development Effectiveness — taxonomy project (2026)
-GitHub:    github.com/purnimaporwal/ifad-pdr-extractor
+GitHub:    github.com/purnimaporwal/pdf-component-extractor
 """
 
 import os
