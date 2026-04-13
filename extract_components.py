@@ -9,7 +9,7 @@ Supports: English, French, Spanish, Arabic, Portuguese
 
 Author: Purnima Porwal
 Built for: IFAD Office of Development Effectiveness — taxonomy project (2026)
-GitHub:    github.com/purnimaporwal/ifad-pdr-extractor
+GitHub:    github.com/purnimaporwal/pdf-component-extractor
 """
 
 # ─────────────────────────────────────────────────────
