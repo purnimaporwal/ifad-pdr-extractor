@@ -67,7 +67,7 @@ For files where both automatic strategies get the wrong pages. You specify the p
 ## Files in this repository
 
 ```
-ifad-pdr-extractor/
+pdf-component-extractor/
 │
 ├── extract_components.py    # Main tool — processes entire folder automatically
 ├── manual_extract.py        # Backup tool — specify page range manually
