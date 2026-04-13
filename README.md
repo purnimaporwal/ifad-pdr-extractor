@@ -89,10 +89,10 @@ Open `extract_components.py` and change one line at the top:
 
 ```python
 # Mac/Linux:
-BASE_FOLDER = "/Users/yourname/Downloads/ifad-pdr-extractor"
+BASE_FOLDER = "/Users/yourname/Downloads/pdf-component-extractor"
 
 # Windows — uncomment this line instead:
-# BASE_FOLDER = r"C:\Users\yourname\Downloads\ifad-pdr-extractor"
+# BASE_FOLDER = r"C:\Users\yourname\Downloads\pdf-component-extractor"
 ```
 
 Put your PDR PDFs in the `input/` folder inside that base folder, then run:
