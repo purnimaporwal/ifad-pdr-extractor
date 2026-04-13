@@ -22,7 +22,7 @@ I worked through it iteratively with Claude. I tried the automatic approach firs
 
 So I suggested trying a manual backup approach. Instead of automatically finding pages, you tell the tool the start and end page numbers directly. That worked better. I kept testing on different IFAD PDR files and refining until both approaches were reliable.
 
-The problem design, the two-strategy approach, and all the decisions about what to build were mine. Claude helped me write Python syntax I was still learning at the time.
+The problem design, the two-strategy approach, and all the decisions about what to build were mine. Claude helped me write Python syntax, which I was still learning at the time.
 
 When the tool was working, my consultant said:
 
@@ -49,7 +49,7 @@ If the TOC approach fails, it scans every page looking for the Components sectio
 
 **Manual backup tool**
 
-For files where both automatic strategies get the wrong pages. You specify the printed start and end page numbers yourself and the tool maps those to actual PDF positions and extracts cleanly.
+For files where both automatic strategies get the wrong pages. You specify the printed start and end page numbers yourself, and the tool maps those to actual PDF positions and extracts cleanly.
 
 ---
 
@@ -125,7 +125,7 @@ python3 manual_extract.py
 
 PDR documents have two sets of page numbers. The front matter (cover page, table of contents, acronyms list) is often unnumbered or uses Roman numerals. Then the main body restarts at printed page 1.
 
-If you just use the printed page number directly, you get the wrong pages. The tool solves this by scanning for the first "1" in page headers or footers after page 15, which is where the main body actually starts.
+If you just use the printed page number directly, you get the wrong pages. The current tool solves this by scanning for the first "1" in page headers or footers after page 15, which is where the main body actually starts.
 
 ```python
 def find_main_body_start(pdf):
@@ -136,6 +136,7 @@ def find_main_body_start(pdf):
         if "1" in footer_header:
             return i   # main body starts here
 ```
+**Known issue with this approach:** In some files, the correct "1" is skipped, and the function returns a very large, incorrect page number. A more robust approach is in development: instead of scanning for page numbers, the improved version will locate the exact section title from the TOC and search the full document body for that string directly, avoiding page number detection entirely. This also handles cases where the TOC contains the full section title, which can then be used to set both the start and end boundaries precisely.
 
 ---
 ## Known limitations and workarounds
@@ -144,16 +145,22 @@ The automatic tool works well for most PDR files, but there are cases where it s
 
 **PDFs with page numbers formatted as "3 of 28" or "3/28"**
 
-Some PDR files display page numbers in this format rather than just "3" in the footer. The tool looks for a standalone page number and cannot read this format, so the automatic page detection fails for these files.
+The tool looks for a standalone page number and cannot read this format, so automatic page detection fails for these files. The manual extraction tool works reliably for these cases.
 
-For these cases, I used the manual extraction tool instead. You can find the printed page number from the table of contents and enter it directly as START_PAGE and END_PAGE in `manual_extract.py`. That approach worked for most of them.
+**Section title position**
+
+An earlier version of the tool only searched the first 8 rows of each page for section headings. This constraint has been removed. The tool now searches the full page, which handles files where section titles appear lower down.
+
+**End-section keywords**
+
+The current end-section keyword list is broad. Words like "innovation" can appear within a Component paragraph and incorrectly trigger an early cutoff. Narrower, more specific end-section patterns are being tested and will replace the current list in a future update.
 
 **When even the manual tool did not work**
 
-A small number of files had formatting issues that made even the manual Python extraction unreliable. For those, I used the print/export function in the PDF reader directly, selecting only the pages needed and saving as a new PDF. Not elegant, but it worked, and the output was the same.
+A small number of files have formatting issues that make Python extraction unreliable regardless of the approach. For those using the print/export function in the PDF reader directly, selecting only the required pages produces the same output. Not elegant, but it
+works.
 
-The tool is most reliable on standard IFAD PDR files with clean footer page numbers. If you are using it on a different set of PDFs, you may need to adapt the page detection logic for different footer formats.
-
+The tool is most reliable on standard IFAD PDR files from replenishment cycles 9-13 with clean footer page numbers. Earlier project files may require adaptation of the detection logic.
 ---
 
 ## Requirements
@@ -169,15 +176,15 @@ Python >= 3.8
 
 I want to be transparent about this because I think it matters.
 
-I used Claude to help build these scripts while I was still learning Python. The problem design, the two-strategy approach, the decision to add a manual backup tool, and the multilingual keyword structure — those were all my decisions based on testing and understanding what was failing. Claude helped me write the Python to implement them.
+I used Claude to help build these scripts while I was still learning Python. The problem design, the two-strategy approach, the decision to add a manual backup tool, and the multilingual keyword structure were all my decisions based on testing and understanding what was failing. Claude helped me write the Python to implement them. 
 
 I think using AI tools well is a legitimate skill worth naming rather than hiding. Knowing when to use them, how to direct them, and how to check what they produce is something I am actively developing alongside my technical skills.
 
 ---
 
-## Built for
+## Built for: IFAD Office of Development Effectiveness, Rome — Impact Assessment Taxonomy Project (2026)
 
-IFAD Office of Development Effectiveness, Rome — impact assessment taxonomy project (2026)
+**Status:** Active development — improvements to TOC-based section detection and keyword matching in progress.
 
 Part of my research portfolio: [github.com/purnimaporwal](https://github.com/purnimaporwal)
 
