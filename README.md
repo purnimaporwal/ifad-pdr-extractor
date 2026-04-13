@@ -108,7 +108,7 @@ Extracted sections appear in `output/` as `[filename]_components.pdf`
 Open `manual_extract.py` and change four settings at the top:
 
 ```python
-BASE_FOLDER = "/Users/yourname/Downloads/ifad-pdr-extractor"
+BASE_FOLDER = "/Users/yourname/Downloads/pdr-extractor"
 INPUT_FILE  = "your_pdr_filename.pdf"   # filename only, no folder prefix
 START_PAGE  = 14                         # printed page number where Components starts
 END_PAGE    = 28                         # printed page number where Components ends
